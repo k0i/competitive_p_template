@@ -1,0 +1,9 @@
+[package]
+name = "k0i"
+version = "0.0.1"
+edition = "2021"
+license = "MIT"
+authors = ["Соджиро Кояма <koyama10032009@outlook.jp> "]
+description = "my cpmpetitive programming template"
+documentation = "https://docs.rs/k01_cp_template"
+[dependencies]
