@@ -3,6 +3,7 @@ use std::ops::{Div, Mul, Rem};
 pub trait Euclidean<T>
 where
     T: Copy + Ord + Mul<Output = Self> + Div<Output = Self> + Rem<Output = Self> + Default,
+    Self: std::marker::Sized,
 {
     fn gcd(x: T, y: T) -> T;
     fn lcm(x: T, y: T) -> Self;
@@ -11,6 +12,7 @@ where
 impl<T> Euclidean<T> for T
 where
     T: Copy + Ord + Mul<Output = Self> + Div<Output = Self> + Rem<Output = Self> + Default,
+    Self: std::marker::Sized,
 {
     /// ```
     /// use k0i::euclidean::Euclidean;
