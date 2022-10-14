@@ -19,6 +19,9 @@ where
     /// assert_eq!(Euclidean::gcd(24, 32),8);
     /// ```
     fn gcd(mut x: T, mut y: T) -> T {
+        if y == T::default() {
+            return x;
+        }
         while x != T::default() {
             if x < y {
                 std::mem::swap(&mut x, &mut y);
