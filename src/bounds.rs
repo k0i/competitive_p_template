@@ -4,7 +4,6 @@ use std::cmp::Ordering;
 pub trait Bound<T> {
     fn lower_bound(&self, x: T) -> usize;
     fn upper_bound(&self, x: T) -> usize;
-    fn b_search(&self, x: T) -> usize;
 }
 
 impl<T: Ord> Bound<T> for [T] {
@@ -12,13 +11,10 @@ impl<T: Ord> Bound<T> for [T] {
     /// ```
     /// use k0i::bounds::Bound;
     /// let vec = vec![1, 2, 4, 6];
-    /// assert_eq!(vec.lower_bound(4), 2);
-    /// ```
-    /// If the candidate is larger than set's larget item,returns set's last index.
-    /// ```
-    /// use k0i::bounds::Bound;
-    /// let vec = vec![1, 2, 4, 6];
-    /// assert_eq!(vec.lower_bound(1000), 3);
+    /// assert_eq!(vec.lower_bound(3), 2);
+    /// assert_eq!(vec.lower_bound(0), 0);
+    /// assert_eq!(vec.lower_bound(7), 4);
+    /// assert_eq!(vec.lower_bound(2), 1);
     /// ```
     fn lower_bound(&self, x: T) -> usize {
         let mut low = 0;
@@ -35,24 +31,17 @@ impl<T: Ord> Bound<T> for [T] {
                 }
             }
         }
-        // Returns last item's index if x is larger than self's largest item.
-        if low == self.len() {
-            low - 1
-        } else {
-            low
-        }
+        low
     }
     /// Returns an iterator pointing to the first element in the range [first,last) which compares greater than val.
     /// ```
     /// use k0i::bounds::Bound;
     /// let vec = vec![1, 2, 4, 6];
     /// assert_eq!(vec.upper_bound(4), 3);
-    /// ```
-    /// If the candidate is larger than set's larget item,returns set's last index.
-    /// ```
-    /// use k0i::bounds::Bound;
-    /// let vec = vec![2, 2, 4, 6];
-    /// assert_eq!(vec.upper_bound(1000), 3);
+    /// assert_eq!(vec.upper_bound(0), 0);
+    /// assert_eq!(vec.upper_bound(3), 2);
+    /// assert_eq!(vec.upper_bound(6), 4);
+    /// assert_eq!(vec.upper_bound(7), 4);
     /// ```
     fn upper_bound(&self, x: T) -> usize {
         let mut low = 0;
@@ -69,34 +58,6 @@ impl<T: Ord> Bound<T> for [T] {
                 }
             }
         }
-        // Returns last item's index if x is larger than self's smallest item.
-        if low == self.len() {
-            low - 1
-        } else {
-            low
-        }
-    }
-    /// Returns an smallest index i such that x <= self[i] .
-    /// ```
-    /// use k0i::bounds::Bound;
-    /// let vec = vec![1, 14, 32, 51, 51, 51, 243, 419, 750, 910];
-    /// assert_eq!(vec.b_search(51), 3);
-    /// assert_eq!(vec.b_search(1), 0);
-    /// assert_eq!(vec.b_search(0), 0);
-    /// assert_eq!(vec.b_search(910), vec.len() - 1);
-    /// assert_eq!(vec.b_search(1000), vec.len());
-    /// ```
-    fn b_search(&self, x: T) -> usize {
-        let mut ng = -1;
-        let mut ok = self.len() as i64;
-        while (ok - ng).abs() > 1 {
-            let mid = (ok + ng) / 2;
-            if self[mid as usize] >= x {
-                ok = mid;
-            } else {
-                ng = mid;
-            }
-        }
-        ok as usize
+        low
     }
 }
