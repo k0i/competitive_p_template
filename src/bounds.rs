@@ -13,6 +13,7 @@ impl<T: Ord> Bound<T> for [T] {
     /// ```
     /// use k0i::bounds::Bound;
     /// let vec = vec![1, 2, 4, 6];
+    /// assert_eq!(vec.lower_bound(0), Ok(0));
     /// assert_eq!(vec.lower_bound(2), Ok(1));
     /// assert_eq!(vec.lower_bound(3), Ok(2));
     /// assert_eq!(vec.lower_bound(0), Ok(0));

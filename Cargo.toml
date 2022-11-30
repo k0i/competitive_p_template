@@ -1,6 +1,6 @@
 [package]
 name = "k0i"
-version = "0.0.9"
+version = "0.0.10"
 edition = "2021"
 license = "MIT"
 authors = ["Соджиро Кояма <koyama10032009@outlook.jp> "]
