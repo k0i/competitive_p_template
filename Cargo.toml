@@ -6,3 +6,4 @@ license = "MIT"
 authors = ["Соджиро Кояма <koyama10032009@outlook.jp> "]
 description = "my competitive programming template"
 [dependencies]
+rand = { version = "=0.7.3", features = ["small_rng"] }
